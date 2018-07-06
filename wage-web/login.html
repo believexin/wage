@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>登录</title>
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+</head>
+<body>
+	<!-- 登陆界面主体开始 -->
+	<div id="main">
+		<!-- 头像区开始-->
+		<div id="header-border">
+			<!-- 头像内部开始-->
+			<div id="header-pic">
+
+			</div>
+			<!-- 头像区内部结束-->
+
+		</div>
+		<!-- 头像区结束-->
+		<!-- 账号密码区开始-->
+
+			<form action="" >
+			<div id="account">
+				<div class="input" >
+					<input type="text" id="userName" name="userName" placeholder="place input username"/>
+				</div>
+				<div class="input">
+					<input type="password" id="userPwd" name="userPwd" placeholder="place input password"/>
+				</div>
+			</div>
+				<input id="signin" type="button" value="Sign In" />
+			</form>
+		<!-- 账号密码区结束-->
+		<!-- 登录区的底部开始-->
+		<div id="footer">
+			<a href="#">忘记密码</a>
+			<span style="color:#898972">|</span>
+			<a href="createUser.html">注册用户</a>
+		</div>
+		<!-- 登陆区的底部结束-->
+	</div>
+	<!-- 登陆界面主体结束 -->
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/conf.js"></script>
+	<script type="text/javascript">
+		$('#signin').click(function(event) {
+
+			var pamats = {
+				userName:$('#userName').val(),
+				userPwd:$('#userPwd').val()
+			}
+
+			$.post('/login',pamats, function(data) {
+				if(data == 'missing'){
+					alert("用户名不存在");
+				}else if(data == 'failure'){
+					alert("密码错误");
+				}else{
+					document.cookie="username="+$('#userName').val();
+					location.href = "index.html";
+				}
+			})
+			.error(function() {
+				alert("网络请求失败！");
+			});
+
+		});
+	</script>
+</body>
+</html>
