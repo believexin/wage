@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.believexin.wage.dao.DeptMapper" >
+  <resultMap id="BaseResultMap" type="com.believexin.wage.pojo.Dept" >
+    <id column="C_ID" property="cId" jdbcType="VARCHAR" />
+    <result column="C_Name" property="cName" jdbcType="VARCHAR" />
+    <result column="C_PID" property="cPid" jdbcType="VARCHAR" />
+    <result column="C_CORP" property="cCorp" jdbcType="VARCHAR" />
+    <result column="C_Alias" property="cAlias" jdbcType="VARCHAR" />
+    <result column="N_Valid" property="nValid" jdbcType="TINYINT" />
+    <result column="N_Order" property="nOrder" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    C_ID, C_Name, C_PID, C_CORP, C_Alias, N_Valid, N_Order
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_aty_dept
+    where C_ID = #{cId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_aty_dept
+    where C_ID = #{cId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.believexin.wage.pojo.Dept" >
+    insert into t_aty_dept (C_ID, C_Name, C_PID, 
+      C_CORP, C_Alias, N_Valid, 
+      N_Order)
+    values (#{cId,jdbcType=VARCHAR}, #{cName,jdbcType=VARCHAR}, #{cPid,jdbcType=VARCHAR}, 
+      #{cCorp,jdbcType=VARCHAR}, #{cAlias,jdbcType=VARCHAR}, #{nValid,jdbcType=TINYINT}, 
+      #{nOrder,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.believexin.wage.pojo.Dept" >
+    insert into t_aty_dept
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        C_ID,
+      </if>
+      <if test="cName != null" >
+        C_Name,
+      </if>
+      <if test="cPid != null" >
+        C_PID,
+      </if>
+      <if test="cCorp != null" >
+        C_CORP,
+      </if>
+      <if test="cAlias != null" >
+        C_Alias,
+      </if>
+      <if test="nValid != null" >
+        N_Valid,
+      </if>
+      <if test="nOrder != null" >
+        N_Order,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        #{cId,jdbcType=VARCHAR},
+      </if>
+      <if test="cName != null" >
+        #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="cPid != null" >
+        #{cPid,jdbcType=VARCHAR},
+      </if>
+      <if test="cCorp != null" >
+        #{cCorp,jdbcType=VARCHAR},
+      </if>
+      <if test="cAlias != null" >
+        #{cAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="nValid != null" >
+        #{nValid,jdbcType=TINYINT},
+      </if>
+      <if test="nOrder != null" >
+        #{nOrder,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.believexin.wage.pojo.Dept" >
+    update t_aty_dept
+    <set >
+      <if test="cName != null" >
+        C_Name = #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="cPid != null" >
+        C_PID = #{cPid,jdbcType=VARCHAR},
+      </if>
+      <if test="cCorp != null" >
+        C_CORP = #{cCorp,jdbcType=VARCHAR},
+      </if>
+      <if test="cAlias != null" >
+        C_Alias = #{cAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="nValid != null" >
+        N_Valid = #{nValid,jdbcType=TINYINT},
+      </if>
+      <if test="nOrder != null" >
+        N_Order = #{nOrder,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where C_ID = #{cId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.believexin.wage.pojo.Dept" >
+    update t_aty_dept
+    set C_Name = #{cName,jdbcType=VARCHAR},
+      C_PID = #{cPid,jdbcType=VARCHAR},
+      C_CORP = #{cCorp,jdbcType=VARCHAR},
+      C_Alias = #{cAlias,jdbcType=VARCHAR},
+      N_Valid = #{nValid,jdbcType=TINYINT},
+      N_Order = #{nOrder,jdbcType=SMALLINT}
+    where C_ID = #{cId,jdbcType=VARCHAR}
+  </update>
+  <select id="query" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_aty_dept
+  </select>
+</mapper>

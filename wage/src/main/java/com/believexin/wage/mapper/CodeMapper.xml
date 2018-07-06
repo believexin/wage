@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.believexin.wage.dao.CodeMapper" >
+  <resultMap id="BaseResultMap" type="com.believexin.wage.pojo.Code" >
+    <id column="C_PID" property="cPid" jdbcType="VARCHAR" />
+    <id column="C_Code" property="cCode" jdbcType="VARCHAR" />
+    <result column="C_Name" property="cName" jdbcType="VARCHAR" />
+    <result column="N_KWH" property="nKwh" jdbcType="TINYINT" />
+    <result column="C_LevelInfo" property="cLevelinfo" jdbcType="VARCHAR" />
+    <result column="N_Valid" property="nValid" jdbcType="TINYINT" />
+    <result column="N_Order" property="nOrder" jdbcType="SMALLINT" />
+    <result column="C_Dmjp" property="cDmjp" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    C_PID, C_Code, C_Name, N_KWH, C_LevelInfo, N_Valid, N_Order, C_Dmjp
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.believexin.wage.pojo.CodeKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_aty_code
+    where C_PID = #{cPid,jdbcType=VARCHAR}
+      and C_Code = #{cCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.believexin.wage.pojo.CodeKey" >
+    delete from t_aty_code
+    where C_PID = #{cPid,jdbcType=VARCHAR}
+      and C_Code = #{cCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.believexin.wage.pojo.Code" >
+    insert into t_aty_code (C_PID, C_Code, C_Name, 
+      N_KWH, C_LevelInfo, N_Valid, 
+      N_Order, C_Dmjp)
+    values (#{cPid,jdbcType=VARCHAR}, #{cCode,jdbcType=VARCHAR}, #{cName,jdbcType=VARCHAR}, 
+      #{nKwh,jdbcType=TINYINT}, #{cLevelinfo,jdbcType=VARCHAR}, #{nValid,jdbcType=TINYINT}, 
+      #{nOrder,jdbcType=SMALLINT}, #{cDmjp,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.believexin.wage.pojo.Code" >
+    insert into t_aty_code
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cPid != null" >
+        C_PID,
+      </if>
+      <if test="cCode != null" >
+        C_Code,
+      </if>
+      <if test="cName != null" >
+        C_Name,
+      </if>
+      <if test="nKwh != null" >
+        N_KWH,
+      </if>
+      <if test="cLevelinfo != null" >
+        C_LevelInfo,
+      </if>
+      <if test="nValid != null" >
+        N_Valid,
+      </if>
+      <if test="nOrder != null" >
+        N_Order,
+      </if>
+      <if test="cDmjp != null" >
+        C_Dmjp,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cPid != null" >
+        #{cPid,jdbcType=VARCHAR},
+      </if>
+      <if test="cCode != null" >
+        #{cCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cName != null" >
+        #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="nKwh != null" >
+        #{nKwh,jdbcType=TINYINT},
+      </if>
+      <if test="cLevelinfo != null" >
+        #{cLevelinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="nValid != null" >
+        #{nValid,jdbcType=TINYINT},
+      </if>
+      <if test="nOrder != null" >
+        #{nOrder,jdbcType=SMALLINT},
+      </if>
+      <if test="cDmjp != null" >
+        #{cDmjp,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.believexin.wage.pojo.Code" >
+    update t_aty_code
+    <set >
+      <if test="cName != null" >
+        C_Name = #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="nKwh != null" >
+        N_KWH = #{nKwh,jdbcType=TINYINT},
+      </if>
+      <if test="cLevelinfo != null" >
+        C_LevelInfo = #{cLevelinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="nValid != null" >
+        N_Valid = #{nValid,jdbcType=TINYINT},
+      </if>
+      <if test="nOrder != null" >
+        N_Order = #{nOrder,jdbcType=SMALLINT},
+      </if>
+      <if test="cDmjp != null" >
+        C_Dmjp = #{cDmjp,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where C_PID = #{cPid,jdbcType=VARCHAR}
+      and C_Code = #{cCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.believexin.wage.pojo.Code" >
+    update t_aty_code
+    set C_Name = #{cName,jdbcType=VARCHAR},
+      N_KWH = #{nKwh,jdbcType=TINYINT},
+      C_LevelInfo = #{cLevelinfo,jdbcType=VARCHAR},
+      N_Valid = #{nValid,jdbcType=TINYINT},
+      N_Order = #{nOrder,jdbcType=SMALLINT},
+      C_Dmjp = #{cDmjp,jdbcType=VARCHAR}
+    where C_PID = #{cPid,jdbcType=VARCHAR}
+      and C_Code = #{cCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

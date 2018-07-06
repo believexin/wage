@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.believexin.wage.dao.RightMapper" >
+  <resultMap id="BaseResultMap" type="com.believexin.wage.pojo.Right" >
+    <id column="C_RightKey" property="cRightkey" jdbcType="VARCHAR" />
+    <result column="C_Name" property="cName" jdbcType="VARCHAR" />
+    <result column="C_Descript" property="cDescript" jdbcType="VARCHAR" />
+    <result column="N_Order" property="nOrder" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    C_RightKey, C_Name, C_Descript, N_Order
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_aty_right
+    where C_RightKey = #{cRightkey,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_aty_right
+    where C_RightKey = #{cRightkey,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.believexin.wage.pojo.Right" >
+    insert into t_aty_right (C_RightKey, C_Name, C_Descript, 
+      N_Order)
+    values (#{cRightkey,jdbcType=VARCHAR}, #{cName,jdbcType=VARCHAR}, #{cDescript,jdbcType=VARCHAR}, 
+      #{nOrder,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.believexin.wage.pojo.Right" >
+    insert into t_aty_right
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cRightkey != null" >
+        C_RightKey,
+      </if>
+      <if test="cName != null" >
+        C_Name,
+      </if>
+      <if test="cDescript != null" >
+        C_Descript,
+      </if>
+      <if test="nOrder != null" >
+        N_Order,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cRightkey != null" >
+        #{cRightkey,jdbcType=VARCHAR},
+      </if>
+      <if test="cName != null" >
+        #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="cDescript != null" >
+        #{cDescript,jdbcType=VARCHAR},
+      </if>
+      <if test="nOrder != null" >
+        #{nOrder,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.believexin.wage.pojo.Right" >
+    update t_aty_right
+    <set >
+      <if test="cName != null" >
+        C_Name = #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="cDescript != null" >
+        C_Descript = #{cDescript,jdbcType=VARCHAR},
+      </if>
+      <if test="nOrder != null" >
+        N_Order = #{nOrder,jdbcType=INTEGER},
+      </if>
+    </set>
+    where C_RightKey = #{cRightkey,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.believexin.wage.pojo.Right" >
+    update t_aty_right
+    set C_Name = #{cName,jdbcType=VARCHAR},
+      C_Descript = #{cDescript,jdbcType=VARCHAR},
+      N_Order = #{nOrder,jdbcType=INTEGER}
+    where C_RightKey = #{cRightkey,jdbcType=VARCHAR}
+  </update>
+  <select id="query" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_aty_right
+    where n_order &lt;&gt; 0
+  </select>
+</mapper>

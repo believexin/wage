@@ -1,0 +1,15 @@
+server:
+  port: 8000
+
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/db_aty
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+  cache:
+    type: guava
+  thymeleaf:
+    prefix: classpath:/templates
+mybatis:
+  mapper-locations: classpath:com/believexin/wage/mapper/*.xml

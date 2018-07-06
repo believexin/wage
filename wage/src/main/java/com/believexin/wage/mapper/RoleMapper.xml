@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.believexin.wage.dao.RoleMapper" >
+  <resultMap id="BaseResultMap" type="com.believexin.wage.pojo.Role" >
+    <id column="C_ID" property="cId" jdbcType="VARCHAR" />
+    <result column="C_Name" property="cName" jdbcType="VARCHAR" />
+    <result column="C_Descript" property="cDescript" jdbcType="VARCHAR" />
+    <result column="N_XTGY" property="nXtgy" jdbcType="TINYINT" />
+    <result column="N_Valid" property="nValid" jdbcType="TINYINT" />
+    <result column="N_Order" property="nOrder" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    C_ID, C_Name, C_Descript, N_XTGY, N_Valid, N_Order
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_aty_role
+    where C_ID = #{cId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_aty_role
+    where C_ID = #{cId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.believexin.wage.pojo.Role" >
+    insert into t_aty_role (C_ID, C_Name, C_Descript, 
+      N_XTGY, N_Valid, N_Order
+      )
+    values (#{cId,jdbcType=VARCHAR}, #{cName,jdbcType=VARCHAR}, #{cDescript,jdbcType=VARCHAR}, 
+      #{nXtgy,jdbcType=TINYINT}, #{nValid,jdbcType=TINYINT}, #{nOrder,jdbcType=SMALLINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.believexin.wage.pojo.Role" >
+    insert into t_aty_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        C_ID,
+      </if>
+      <if test="cName != null" >
+        C_Name,
+      </if>
+      <if test="cDescript != null" >
+        C_Descript,
+      </if>
+      <if test="nXtgy != null" >
+        N_XTGY,
+      </if>
+      <if test="nValid != null" >
+        N_Valid,
+      </if>
+      <if test="nOrder != null" >
+        N_Order,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        #{cId,jdbcType=VARCHAR},
+      </if>
+      <if test="cName != null" >
+        #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="cDescript != null" >
+        #{cDescript,jdbcType=VARCHAR},
+      </if>
+      <if test="nXtgy != null" >
+        #{nXtgy,jdbcType=TINYINT},
+      </if>
+      <if test="nValid != null" >
+        #{nValid,jdbcType=TINYINT},
+      </if>
+      <if test="nOrder != null" >
+        #{nOrder,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.believexin.wage.pojo.Role" >
+    update t_aty_role
+    <set >
+      <if test="cName != null" >
+        C_Name = #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="cDescript != null" >
+        C_Descript = #{cDescript,jdbcType=VARCHAR},
+      </if>
+      <if test="nXtgy != null" >
+        N_XTGY = #{nXtgy,jdbcType=TINYINT},
+      </if>
+      <if test="nValid != null" >
+        N_Valid = #{nValid,jdbcType=TINYINT},
+      </if>
+      <if test="nOrder != null" >
+        N_Order = #{nOrder,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where C_ID = #{cId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.believexin.wage.pojo.Role" >
+    update t_aty_role
+    set C_Name = #{cName,jdbcType=VARCHAR},
+      C_Descript = #{cDescript,jdbcType=VARCHAR},
+      N_XTGY = #{nXtgy,jdbcType=TINYINT},
+      N_Valid = #{nValid,jdbcType=TINYINT},
+      N_Order = #{nOrder,jdbcType=SMALLINT}
+    where C_ID = #{cId,jdbcType=VARCHAR}
+  </update>
+</mapper>

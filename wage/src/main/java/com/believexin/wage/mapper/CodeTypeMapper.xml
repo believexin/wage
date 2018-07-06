@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.believexin.wage.dao.CodeTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.believexin.wage.pojo.CodeType" >
+    <id column="C_ID" property="cId" jdbcType="VARCHAR" />
+    <result column="C_Name" property="cName" jdbcType="VARCHAR" />
+    <result column="N_Valid" property="nValid" jdbcType="TINYINT" />
+    <result column="N_SFKWH" property="nSfkwh" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    C_ID, C_Name, N_Valid, N_SFKWH
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_aty_codetype
+    where C_ID = #{cId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_aty_codetype
+    where C_ID = #{cId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.believexin.wage.pojo.CodeType" >
+    insert into t_aty_codetype (C_ID, C_Name, N_Valid, 
+      N_SFKWH)
+    values (#{cId,jdbcType=VARCHAR}, #{cName,jdbcType=VARCHAR}, #{nValid,jdbcType=TINYINT}, 
+      #{nSfkwh,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.believexin.wage.pojo.CodeType" >
+    insert into t_aty_codetype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        C_ID,
+      </if>
+      <if test="cName != null" >
+        C_Name,
+      </if>
+      <if test="nValid != null" >
+        N_Valid,
+      </if>
+      <if test="nSfkwh != null" >
+        N_SFKWH,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        #{cId,jdbcType=VARCHAR},
+      </if>
+      <if test="cName != null" >
+        #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="nValid != null" >
+        #{nValid,jdbcType=TINYINT},
+      </if>
+      <if test="nSfkwh != null" >
+        #{nSfkwh,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.believexin.wage.pojo.CodeType" >
+    update t_aty_codetype
+    <set >
+      <if test="cName != null" >
+        C_Name = #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="nValid != null" >
+        N_Valid = #{nValid,jdbcType=TINYINT},
+      </if>
+      <if test="nSfkwh != null" >
+        N_SFKWH = #{nSfkwh,jdbcType=TINYINT},
+      </if>
+    </set>
+    where C_ID = #{cId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.believexin.wage.pojo.CodeType" >
+    update t_aty_codetype
+    set C_Name = #{cName,jdbcType=VARCHAR},
+      N_Valid = #{nValid,jdbcType=TINYINT},
+      N_SFKWH = #{nSfkwh,jdbcType=TINYINT}
+    where C_ID = #{cId,jdbcType=VARCHAR}
+  </update>
+</mapper>

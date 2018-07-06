@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.believexin.wage.dao.RoleRightMapper" >
+  <resultMap id="BaseResultMap" type="com.believexin.wage.pojo.RoleRight" >
+    <id column="C_ID" property="cId" jdbcType="VARCHAR" />
+    <result column="C_RoleID" property="cRoleid" jdbcType="VARCHAR" />
+    <result column="C_RightKey" property="cRightkey" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    C_ID, C_RoleID, C_RightKey
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_aty_role_right
+    where C_ID = #{cId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_aty_role_right
+    where C_ID = #{cId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.believexin.wage.pojo.RoleRight" >
+    insert into t_aty_role_right (C_ID, C_RoleID, C_RightKey
+      )
+    values (#{cId,jdbcType=VARCHAR}, #{cRoleid,jdbcType=VARCHAR}, #{cRightkey,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.believexin.wage.pojo.RoleRight" >
+    insert into t_aty_role_right
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        C_ID,
+      </if>
+      <if test="cRoleid != null" >
+        C_RoleID,
+      </if>
+      <if test="cRightkey != null" >
+        C_RightKey,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        #{cId,jdbcType=VARCHAR},
+      </if>
+      <if test="cRoleid != null" >
+        #{cRoleid,jdbcType=VARCHAR},
+      </if>
+      <if test="cRightkey != null" >
+        #{cRightkey,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.believexin.wage.pojo.RoleRight" >
+    update t_aty_role_right
+    <set >
+      <if test="cRoleid != null" >
+        C_RoleID = #{cRoleid,jdbcType=VARCHAR},
+      </if>
+      <if test="cRightkey != null" >
+        C_RightKey = #{cRightkey,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where C_ID = #{cId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.believexin.wage.pojo.RoleRight" >
+    update t_aty_role_right
+    set C_RoleID = #{cRoleid,jdbcType=VARCHAR},
+      C_RightKey = #{cRightkey,jdbcType=VARCHAR}
+    where C_ID = #{cId,jdbcType=VARCHAR}
+  </update>
+</mapper>

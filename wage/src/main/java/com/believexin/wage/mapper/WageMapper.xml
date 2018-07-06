@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.believexin.wage.dao.WageMapper" >
+  <select id="getRoles" resultType="map">
+  	SELECT
+		count(1) AS num,
+		C_RoleID role,
+		role.C_Name as name
+	FROM
+		t_aty_user_right userright
+	LEFT JOIN t_aty_role role on role.C_ID=userright.C_RoleID
+	GROUP BY
+		C_RoleID
+  </select>
+  <select id="getUserAndSalaryForPage" resultType="java.util.Map" parameterType="com.believexin.wage.common.model.PageInfo">
+  	SELECT
+		users.c_id AS id,
+		users.C_Name AS username,
+		if(users.C_XMJP=1,"男","女") AS sex,
+		users.C_CORP AS corpid,
+		corps.C_Name AS corpname,
+		users.C_DEPT AS deptid,
+		depts.C_Name AS deptname,
+		salary.N_salary AS salary,
+		salary.N_working_years AS work_year,
+		salary.n_bonuses AS bonuses,
+		salary.c_bank_cardId AS cardid,
+		roles.C_Name AS job
+	FROM
+		t_aty_user users
+	LEFT JOIN t_aty_salary salary ON salary.C_UserId = users.C_ID
+	LEFT JOIN t_aty_corp corps ON corps.C_ID = users.C_CORP
+	LEFT JOIN t_aty_dept depts ON depts.C_ID = users.C_DEPT
+	LEFT JOIN (
+		SELECT
+			*
+		FROM
+			t_aty_user_right
+		GROUP BY
+			C_UserID
+	) roleright ON roleright.C_UserID = users.C_ID
+	LEFT JOIN t_aty_role roles ON roles.C_ID = roleright.C_RoleID
+	ORDER BY
+		users.C_ID
+	LIMIT #{pageCount} OFFSET #{pageStart}
+  </select>
+    <select id="getUserAndSalaryForPageSize" resultType="int">
+  	SELECT
+		count(*)
+	FROM
+		t_aty_user users
+	LEFT JOIN t_aty_salary salary ON salary.C_UserId = users.C_ID
+  </select>
+  <select id="getAvgWage" resultType="java.util.Map">
+	SELECT
+		avg(wage.d_salary) avg_salary,
+		avg(wage.d_bonus) avg_bonus,
+		role.C_Name,
+		wage.c_data
+	FROM
+		t_aty_wage wage
+	LEFT JOIN t_aty_user_right user_right ON user_right.c_userid = wage.c_user_id
+	LEFT JOIN t_aty_role role ON role.C_ID = user_right.C_RoleID
+	WHERE
+		wage.n_status = 1
+	AND role.C_ID = #{roleid}
+	AND c_data IN (
+		date_format(NOW(), '%Y-%m'),
+		date_format(
+			date_sub(NOW(), INTERVAL 1 MONTH),
+			'%Y-%m'
+		),
+		date_format(
+			date_sub(NOW(), INTERVAL 2 MONTH),
+			'%Y-%m'
+		),
+		date_format(
+			date_sub(NOW(), INTERVAL 3 MONTH),
+			'%Y-%m'
+		)
+	)
+	GROUP BY
+		role.C_Name,
+		wage.c_data
+	ORDER BY
+		c_data
+  </select>
+  <select id="getAvgWageForUser" resultType="java.util.Map">
+	SELECT
+		sum(wage.d_salary) avg_salary,
+		sum(wage.d_bonus) avg_bonus,
+		wage.c_data
+	FROM
+		t_aty_wage wage
+	WHERE
+		wage.n_status = 1
+	AND wage.c_user_id = #{userid}
+	AND c_data IN (
+		date_format(NOW(), '%Y-%m'),
+		date_format(
+			date_sub(NOW(), INTERVAL 1 MONTH),
+			'%Y-%m'
+		),
+		date_format(
+			date_sub(NOW(), INTERVAL 2 MONTH),
+			'%Y-%m'
+		),
+		date_format(
+			date_sub(NOW(), INTERVAL 3 MONTH),
+			'%Y-%m'
+		)
+	)
+	GROUP BY
+		wage.c_data
+	ORDER BY
+		c_data
+  </select>
+</mapper>
